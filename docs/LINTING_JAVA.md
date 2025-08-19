@@ -9,7 +9,7 @@ Java 코드의 스타일을 일관되게 유지하기 위한 Checkstyle 설정�
 wget -q https://github.com/checkstyle/checkstyle/releases/download/checkstyle-10.12.4/checkstyle-10.12.4-all.jar -O checkstyle.jar
 ````
 
-**MAc**
+**Mac**
 ```bash
 curl -L -o checkstyle.jar https://github.com/checkstyle/checkstyle/releases/download/checkstyle-10.12.4/checkstyle-10.12.4-all.jar
 ```
