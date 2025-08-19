@@ -4,9 +4,15 @@ Java 코드의 스타일을 일관되게 유지하기 위한 Checkstyle 설정�
 
 ### 1. 도구 설치
 
+**Windows**
 ```bash
 wget -q https://github.com/checkstyle/checkstyle/releases/download/checkstyle-10.12.4/checkstyle-10.12.4-all.jar -O checkstyle.jar
 ````
+
+**MAc**
+```bash
+curl -L -o checkstyle.jar https://github.com/checkstyle/checkstyle/releases/download/checkstyle-10.12.4/checkstyle-10.12.4-all.jar
+```
 
 > 위 명령어는 `checkstyle.jar` 파일이 없을 경우 한 번만 실행하면 됩니다.
 
