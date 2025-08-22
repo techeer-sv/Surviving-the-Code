@@ -1,3 +1,4 @@
+
 import java.util.Arrays;
 
 /**
@@ -66,6 +67,7 @@ public final class BOJ2012 {
             }
             System.out.println("---"); // 구분선 추가
             System.out.flush(); // 출력 버퍼 플러시
+            System.out.println(); // 추가 빈 줄
         }
     }
 }
