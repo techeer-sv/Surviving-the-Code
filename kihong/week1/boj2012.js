@@ -1,5 +1,4 @@
 // 등수 매기기 문제 (백준 2012) JS 버전
-import { console } from "console";
 function solve(n, students) {
   students.sort((a, b) => a - b);
   let result = 0;
