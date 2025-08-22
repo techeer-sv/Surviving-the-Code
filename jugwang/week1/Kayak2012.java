@@ -20,7 +20,7 @@ class Student{
     }
 }
 
-public class _2012 {
+public class Kayak2012 {
     public static long solution(int num, int[] ranks) {
         Student[] students = new Student[num];
         // 학생 수만큼 반복하며 학생 순위 입력받기

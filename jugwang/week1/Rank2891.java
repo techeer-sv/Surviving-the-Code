@@ -27,7 +27,7 @@ class Team{
     }
 }
 
-public class _2891 {
+public class Rank2891 {
     public static int solution(int n, int[] damagedTeams, int[] spareTeams) {
         Team[] team = new Team[n];
         for (int i = 0; i < n; i++) {

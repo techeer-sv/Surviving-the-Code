@@ -1,6 +1,6 @@
 import java.util.Arrays;
 
-public class _20044 {
+public class ProjectTeams20044 {
     public static int solution(int[] arr) {
         // 정렬하기
         Arrays.sort(arr);
