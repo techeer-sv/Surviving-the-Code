@@ -25,7 +25,7 @@ def solution(n, s, r, damaged_teams, spare_teams):
             if idx > 1 and teams[idx - 1] == 2:
                 teams[idx] = 1
                 teams[idx - 1] = 1
-            # 전 팀에도 카야를 가지고 있는 지 확인한다.
+            # 뒤에 있는 팀에도 카야를 가지고 있는 지 확인한다.
             elif idx < n and teams[idx + 1] == 2:
                 teams[idx] = 1
                 teams[idx + 1] = 1
