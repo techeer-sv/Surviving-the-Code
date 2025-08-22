@@ -20,7 +20,7 @@ class Student{
     }
 }
 
-public class Main {
+public class _2012 {
     public static long solution(int num, int[] ranks) {
         Student[] students = new Student[num];
         // 학생 수만큼 반복하며 학생 순위 입력받기
@@ -40,7 +40,7 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        // Test cases from kihong/week1/2012.py
+        // Test cases
         int[] nArr = {5, 2};
         int[][] ranksArr = {
             {1, 5, 3, 1, 2},

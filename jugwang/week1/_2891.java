@@ -27,7 +27,7 @@ class Team{
     }
 }
 
-public class Main {
+public class _2891 {
     public static int solution(int n, int[] damagedTeams, int[] spareTeams) {
         Team[] team = new Team[n];
         for (int i = 0; i < n; i++) {
@@ -81,7 +81,7 @@ public class Main {
     }
     
     public static void main(String[] args) {
-        // Test cases from kihong/week1/2891.py
+        // Test cases
         int[] nArr = {5, 5, 6};
         int[][] damagedArr = {{2, 4}, {2, 4}, {6}};
         int[][] reserveArr = {{3}, {1, 3, 5}, {3}};

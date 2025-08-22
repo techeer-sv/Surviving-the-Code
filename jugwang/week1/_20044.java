@@ -1,6 +1,6 @@
 import java.util.Arrays;
 
-public class Main {
+public class _20044 {
     public static int solution(int[] arr) {
         // 정렬하기
         Arrays.sort(arr);
@@ -23,7 +23,7 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        // Test cases from kihong/week1/20044.py
+        // Test cases
         int[][] testCases = {
             {1, 7, 5, 8},
             {1, 7, 3, 5, 9, 2}
