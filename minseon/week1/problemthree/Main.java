@@ -1,4 +1,4 @@
-package problem20044;
+package problemthree;
 import java.util.Scanner;
 import java.util.Arrays;
 

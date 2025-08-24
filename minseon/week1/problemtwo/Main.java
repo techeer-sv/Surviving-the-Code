@@ -1,4 +1,4 @@
-package problem2891;
+package problemtwo;
 import java.util.Scanner;
 import java.util.Arrays;
 
