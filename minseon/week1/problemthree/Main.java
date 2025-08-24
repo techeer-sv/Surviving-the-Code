@@ -1,4 +1,4 @@
-package problemthree;
+// package problemthree; - CI 실행을 위해 제거
 import java.util.Scanner;
 import java.util.Arrays;
 
