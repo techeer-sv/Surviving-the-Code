@@ -12,40 +12,52 @@ public final class Main {
         // 테스트 실행
         runTests();
         
-        // 실제 문제 실행
-        Scanner scanner = new Scanner(System.in);
-        int n = scanner.nextInt();
-        int[] arr = new int[n];
+        // CI 환경에서는 테스트만 실행하고 종료
+        if (args.length > 0 && args[0].equals("--test-only")) {
+            System.out.println("테스트 모드로 실행 완료");
+            return;
+        }
+        
+        // 실제 문제 실행 (로컬에서만)
+        try {
+            Scanner scanner = new Scanner(System.in);
+            int n = scanner.nextInt();
+            int[] arr = new int[n];
 
-        for (int i = 0; i < n; i++) {
-            arr[i] = scanner.nextInt();
+            for (int i = 0; i < n; i++) {
+                arr[i] = scanner.nextInt();
+            }
+            Arrays.sort(arr);
+            //System.out.println("입력된 소팅값: " + Arrays.toString(arr));
+            int[] real = new int[n];
+            for (int i = 0; i < n; i++) {
+                real[i] += i + 1;
+            }
+            int[] sum = new int[n];
+            for (int i = 0; i < n; i++) {
+                sum[i] = Math.abs(real[i] - arr[i]);
+            }
+            long all = 0;
+            for (int i = 0; i < n; i++) {
+                all += sum[i];
+            }
+            System.out.println(all);
+            scanner.close();
+        } catch (Exception e) {
+            System.out.println("입력 처리 중 오류 발생: " + e.getMessage());
         }
-        Arrays.sort(arr);
-        //System.out.println("입력된 소팅값: " + Arrays.toString(arr));
-        int[] real = new int[n];
-        for (int i = 0; i < n; i++) {
-            real[i] += i + 1;
-        }
-        int[] sum = new int[n];
-        for (int i = 0; i < n; i++) {
-            sum[i] = Math.abs(real[i] - arr[i]);
-        }
-        long all = 0;
-        for (int i = 0; i < n; i++) {
-            all += sum[i];
-        }
-        System.out.println(all);
-        scanner.close();
     }
     
     // 문제 해결 로직을 별도 메서드로 분리
     public static long solve(final int n, final int[] expectedRanks) {
-        Arrays.sort(expectedRanks);
+        // 입력 배열을 복사하여 정렬 (원본 배열 변경 방지)
+        int[] sortedRanks = expectedRanks.clone();
+        Arrays.sort(sortedRanks);
         long totalDissatisfaction = 0;
         
         for (int i = 0; i < n; i++) {
             int actualRank = i + 1;
-            int expectedRank = expectedRanks[i];
+            int expectedRank = sortedRanks[i];
             totalDissatisfaction += Math.abs(actualRank - expectedRank);
         }
         

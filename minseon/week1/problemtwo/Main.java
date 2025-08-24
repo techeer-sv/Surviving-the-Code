@@ -11,8 +11,15 @@ public final class Main {
         // 테스트 실행
         runTests();
         
-        // 실제 문제 실행
-        Scanner scanner = new Scanner(System.in);
+        // CI 환경에서는 테스트만 실행하고 종료
+        if (args.length > 0 && args[0].equals("--test-only")) {
+            System.out.println("테스트 모드로 실행 완료");
+            return;
+        }
+        
+        // 실제 문제 실행 (로컬에서만)
+        try {
+            Scanner scanner = new Scanner(System.in);
         int[] infor = new int[3];
         for (int i = 0; i < 3; i++) {
             infor[i] = scanner.nextInt();
@@ -56,6 +63,9 @@ public final class Main {
         //System.out.println("결과 기본값: " + Arrays.toString(def));
         System.out.println(count);
         scanner.close();
+        } catch (Exception e) {
+            System.out.println("입력 처리 중 오류 발생: " + e.getMessage());
+        }
     }
     
     // 문제 해결 로직을 별도 메서드로 분리
