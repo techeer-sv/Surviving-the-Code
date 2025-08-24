@@ -2,7 +2,7 @@ def solve(n: int, k: list[int]) -> int:
     k.sort()
     score = 0
     for i in range(n):
-        score = score + abs((i+1) - k[i])
+        score = score + abs((i + 1) - k[i])
     return score
 
 

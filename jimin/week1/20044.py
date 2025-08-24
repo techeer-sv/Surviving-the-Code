@@ -2,7 +2,7 @@ def solve(N: int, students: list[int]) -> int:
     students.sort()
     score = []
     for i in range(N):
-        score.append(students[i] + students[2*N - i - 1])
+        score.append(students[i] + students[2 * N - i - 1])
     return min(score)
 
 
