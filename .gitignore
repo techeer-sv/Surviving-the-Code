@@ -9,3 +9,7 @@ LICENSE
 # Default ignored files
 /shelf/
 /workspace.xml
+
+# 체크스타일 설정 파일들 (모든 위치)
+**/checkstyle.xml
+**/checkstyle.jar
