@@ -2,6 +2,11 @@ import java.util.Scanner;
 
 public class Main {
     public static void main (String[] args) {
+        // CI/CD 환경에서는 테스트 실행, 실제 입력이 필요한 경우는 주석 처리
+        runTests();
+        
+        // 실제 백준 제출용 코드 (CI/CD에서는 주석 처리)
+        /*
         Scanner scanner = new Scanner(System.in);
         int start = scanner.nextInt();
         int last = scanner.nextInt();
@@ -28,6 +33,7 @@ public class Main {
         else {
             System.out.println(-1);
         }
+        */
     }
     
     // ===== 테스트 코드 =====
