@@ -17,12 +17,16 @@ public class Main {
             cities[i].price = Integer.parseInt(prices[i]);
         }
 
+        // long 보다 큰 BigInteger 사용
         BigInteger totalPrice = BigInteger.ZERO;
+        // 첫 도시의 가격을 최소 가격으로 설정
         int min = cities[0].price;
+        // 도시를 순회하며 최소 가격을 찾고 총 가격을 계산
         for (int i = 0 ; i < cityNum ; i++) {
             if (cities[i].price < min) {
                 min = cities[i].price;
             }
+            // 최소 가격과 거리를 곱하여 총 가격을 계산
             totalPrice = totalPrice.add(BigInteger.valueOf(cities[i].distance).multiply(BigInteger.valueOf(min)));
         }
 
