@@ -1,0 +1,11 @@
+*.jar
+act.exe
+act.zip
+LICENSE
+
+# IntelliJ IDEA project files
+.idea/
+
+# Default ignored files
+/shelf/
+/workspace.xml
