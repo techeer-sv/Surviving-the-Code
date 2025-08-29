@@ -40,8 +40,8 @@ testCases.forEach(({ input, expected }, idx) => {
   const result = solve(...input);
   console.log(
     `TestCase #${idx + 1}: input=${input.join(
-      ", "
-    )}, result=${result}, expected=${expected}`
+      ", ",
+    )}, result=${result}, expected=${expected}`,
   );
   if (result === expected) {
     console.log("✅ 통과");
