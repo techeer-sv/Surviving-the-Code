@@ -31,3 +31,29 @@
 - [LINTING_JAVA.md](docs/LINTING_JAVA.md)
 - [LINTING_JAVASCRIPT.md](docs/LINTING_JAVASCRIPT.md)
 - [LINTING_GO.md](docs/LINTING_GO.md)
+
+## 브랜치 & PR 규칙
+
+### 브랜치 네이밍
+
+- 스터디 주차 브랜치: `week{N}-{이름}` (예: week9-kihong)
+- 기타 브랜치: 목적에 맞는 이름 사용(이슈에서 생성되는 대로) (예: fix-python-lint, update-ci-config)
+
+### PR(Pull Request)
+
+- PR 제목: `Week{N} {이름}` (예: Week9 Jungeun)
+- PR 설명에는 다음 내용을 반드시 포함:
+   - pr 탬플릿에 맞게 작성
+
+### 코드 리뷰 규칙
+
+- PR 작성자
+  - 리뷰 코멘트에 대한 응답은 모두 작성
+  - 수정 필요 시 pr 드래프트 실행
+  - 코드 수정 후에는 리뷰어에게 Re-review 요청 (소용돌이 버튼 클릭)
+  - 피드백을 반영한 경우, 해당 커밋 링크를 코멘트로 남기기
+  - 모든 리뷰어가 Approve 했다면 직접 Merge 진행
+
+- 리뷰어
+  - 할당된 PR은 책임감을 가지고 리뷰
+  - 리뷰 완료 후 반드시 Approve 진행
