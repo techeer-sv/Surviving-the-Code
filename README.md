@@ -32,7 +32,12 @@
 - [LINTING_JAVASCRIPT.md](docs/LINTING_JAVASCRIPT.md)
 - [LINTING_GO.md](docs/LINTING_GO.md)
 
-## 브랜치 & PR 규칙
+## file & 브랜치 & PR 규칙
+
+### file 네이밍
+- file 이름: `BOJ{문제번호}.{언어에 맞는 확장자}`
+   - JAVA의 경우 디렉토리를 생성 후 Main.java 생성 시 디렉토리 명을 해당 파일로 설정
+   - 또는 파일을 해당 이름으로 생성 후 class 네이밍: `public final class {파일이름}`
 
 ### 브랜치 네이밍
 
