@@ -37,9 +37,3 @@ testCases.forEach(({ input, expected }, idx) => {
   }
   console.log("---");
 });
-
-// 아래 코드는 백준 제출용(주석처리 또는 삭제)
-// const fs = require("fs");
-// const input = fs.readFileSync(0).toString().trim();
-// const [A, B, C, M] = input.split(" ").map(Number);
-// console.log(solve(A, B, C, M));
