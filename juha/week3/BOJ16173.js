@@ -11,7 +11,7 @@
         b) 아래쪽(y + jump)이 범위 내고, 방문하지 않았으면 스택에 넣고 방문 처리
 3) 스택이 모두 비었는데도 도착하지 못하면 실패("Hing" 반환)
 
-시간복잡도: O(N^2) (모든 칸을 한 번씩 방문)
+시간복잡도: O(N) (모든 칸을 한 번씩 방문)
 */
 
 function solve(board) {
@@ -73,7 +73,7 @@ for (const { board, expected } of testCases) {
   console.log(
     `board=\n${board
       .map((row) => row.join(" "))
-      .join("\n")}\nresult=${result}, expected=${expected}`,
+      .join("\n")}\nresult=${result}, expected=${expected}`
   );
   if (result === expected) {
     console.log("✅ 통과");
