@@ -73,7 +73,7 @@ for (const { board, expected } of testCases) {
   console.log(
     `board=\n${board
       .map((row) => row.join(" "))
-      .join("\n")}\nresult=${result}, expected=${expected}`
+      .join("\n")}\nresult=${result}, expected=${expected}`,
   );
   if (result === expected) {
     console.log("✅ 통과");

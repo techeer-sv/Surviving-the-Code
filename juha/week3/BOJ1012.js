@@ -11,9 +11,6 @@ O(T * M * N)
 - 한번 방문한 칸은 다시 방문하지 않으므로 M * N에 비례
 */
 
-// const fs = require("fs");
-// const input = fs.readFileSync(0).toString().trim().split("\n");
-
 function solution(input) {
   let line = 0;
   const T = Number(input[line++]);
