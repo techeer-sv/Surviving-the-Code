@@ -8,22 +8,23 @@
 # 3. 밭 전체를 돌면서 1을 만나면 dfs실행
 # 4. DFS가 한 번 실행될 때마다 지렁이 수를 1 늘려줌
 
-#dfs 함수
-#1.stack에 처음 탐색할 위치 넣어주기
-#2. 탐색할 위치는 filed에서 0으로 바꿔주기(방문한 배추는 0으로 바꾸기)
-#3. 네 방향을 차례대로 확인한다.
-#4.(nx, ny)가 밭 범위 안에 있고, 아직 방문하지 않은 배추(1)라면: 방문 처리(field[ny][nx] = 0),스택에 (nx, ny) 추가
+# dfs 함수
+# 1.stack에 처음 탐색할 위치 넣어주기
+# 2. 탐색할 위치는 filed에서 0으로 바꿔주기(방문한 배추는 0으로 바꾸기)
+# 3. 네 방향을 차례대로 확인한다.
+# 4.(nx, ny)가 밭 범위 안에 있고, 아직 방문하지 않은 배추(1)라면: 방문 처리(field[ny][nx] = 0),스택에 (nx, ny) 추가
 #
 
 import sys
 
 input = sys.stdin.readline
 
+
 def dfs(start_x, start_y, field, n, m):
     stack = [(start_x, start_y)]
     field[start_y][start_x] = 0  # 방문 처리
 
-    directions = [(1,0), (-1,0), (0,1), (0,-1)]
+    directions = [(1, 0), (-1, 0), (0, 1), (0, -1)]
 
     while stack:
         x, y = stack.pop()
@@ -35,7 +36,7 @@ def dfs(start_x, start_y, field, n, m):
 
 
 def solve(M, N, K, cabbage_list):
-    field = [[0]*M for _ in range(N)]
+    field = [[0] * M for _ in range(N)]
 
     # 배추 위치 심기
     for X, Y in cabbage_list:
@@ -88,7 +89,9 @@ def main():
 
     for i, tc in enumerate(cases):
         result = solve(tc["M"], tc["N"], tc["K"], tc["cabbage_list"])
-        assert result == tc["expected"], f"[{i}] 실패: expected={tc['expected']}, actual={result}"
+        assert (
+            result == tc["expected"]
+        ), f"[{i}] 실패: expected={tc['expected']}, actual={result}"
         print(f"test [{i}] 성공")
 
 

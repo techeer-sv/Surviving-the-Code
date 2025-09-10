@@ -1,5 +1,5 @@
-#시간복잡도 : O(n²)
-#dfs사용해서 풀기 이유 : 모든 경로중에서 끝 지점에 도달하는게 뭔지 찾아야해서
+# 시간복잡도 : O(n²)
+# dfs사용해서 풀기 이유 : 모든 경로중에서 끝 지점에 도달하는게 뭔지 찾아야해서
 # 1.게임판을 2차원 리스트로 입력받음
 # 출발점 (0,0)에서 시작해 DFS(스택)를 이용해 탐색
 # 스택에서 좌표를 꺼내 범위를 벗어나면 무시
@@ -10,8 +10,8 @@
 # 스택이 다 빌 때까지 도착점을 못 찾으면 실패 → False 반환
 
 
-#시간복잡도 : O(n²)
-#dfs사용해서 풀기 이유 : 모든 경로중에서 끝 지점에 도달하는게 뭔지 찾아야해서
+# 시간복잡도 : O(n²)
+# dfs사용해서 풀기 이유 : 모든 경로중에서 끝 지점에 도달하는게 뭔지 찾아야해서
 # 1.게임판을 2차원 리스트로 입력받음
 # 출발점 (0,0)에서 시작해 DFS(스택)를 이용해 탐색
 # 스택에서 좌표를 꺼내 범위를 벗어나면 무시
@@ -20,6 +20,7 @@
 # 오른쪽, 아래쪽으로 점프 가능한 칸을 스택에 추가
 # 해당 칸이 -1이면 도착 성공 → "HaruHaru" 출력
 # 스택이 다 빌 때까지 도착점을 못 찾으면 실패 → False 반환
+
 
 def a(board, n):
     # 방문 여부를 기록할 2차원 배열 (처음엔 전부 False)
@@ -65,6 +66,7 @@ def a(board, n):
 def solve(n, board):
     return "HaruHaru" if a(board, n) else "Hing"
 
+
 def main():
     cases = [
         {"n": 2, "board": [[0, 96], [50, -1]], "expected": "Hing"},
@@ -74,10 +76,11 @@ def main():
     ]
     for i, tc in enumerate(cases, 1):
         result = solve(tc["n"], tc["board"])
-        assert tc["expected"] == result, (
-            f"[{i}] 실패: expected={tc['expected']}, actual_result={result}"
-        )
+        assert (
+            tc["expected"] == result
+        ), f"[{i}] 실패: expected={tc['expected']}, actual_result={result}"
         print(f"test [{i}] 성공")
+
 
 if __name__ == "__main__":
     main()
