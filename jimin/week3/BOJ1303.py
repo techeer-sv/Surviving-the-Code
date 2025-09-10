@@ -97,7 +97,6 @@ def run_test(input_str, expected_output):
                             count += 1
             return count
 
-
         for y in range(M):
             for x in range(N):
                 if not visited[y][x]:
