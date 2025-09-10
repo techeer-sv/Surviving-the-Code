@@ -90,7 +90,7 @@ def main():
     for i, tc in enumerate(cases):
         result = solve(tc["M"], tc["N"], tc["K"], tc["cabbage_list"])
         assert (
-                result == tc["expected"]
+            result == tc["expected"]
         ), f"[{i}] 실패: expected={tc['expected']}, actual={result}"
         print(f"test [{i}] 성공")
 

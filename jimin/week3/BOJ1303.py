@@ -108,7 +108,7 @@ def run_test(input_str, expected_output):
                         blue_power += size * size
         output = f"{white_power} {blue_power}"
         assert (
-                output == expected_output
+            output == expected_output
         ), f"실패: 기대값={expected_output}, 실제={output}"
         print(f"테스트 성공 ✅ 입력:\n{input_str.strip()}\n출력: {output}")
     finally:
