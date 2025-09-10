@@ -87,6 +87,7 @@ def main():
         },
     ]
 
+
     for i, tc in enumerate(cases):
         result = solve(tc["M"], tc["N"], tc["K"], tc["cabbage_list"])
         assert (
