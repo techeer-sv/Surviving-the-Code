@@ -64,9 +64,9 @@ def main():
     ]
     for i, tc in enumerate(cases, 1):
         result = solve(tc["n"], tc["board"])
-        assert (
-            tc["expected"] == result
-        ), f"[{i}] 실패: expected={tc['expected']}, actual_result={result}"
+        assert tc["expected"] == result, (
+            f"[{i}] 실패: expected={tc['expected']}, actual_result={result}"
+        )
         print(f"test [{i}] 성공")
 
 
