@@ -1,5 +1,5 @@
 # 시간 표기법 : O(N × M)
-
+import io
 import sys
 
 input = sys.stdin.readline  # 빠른 입력을 위해 sys.stdin.readline 사용
@@ -58,12 +58,6 @@ for y in range(M):  # 세로
 
 # 최종 출력 (아군 위력, 적군 위력)
 print(white_power, blue_power)
-
-
-# -----------------------------
-# 테스트 코드 (추가)
-# -----------------------------
-import io
 
 
 def run_test(input_str, expected_output):
