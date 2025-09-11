@@ -1,6 +1,6 @@
 # 시간 표기법 : O(N × M)
-import sys
 import io
+import sys
 
 input = sys.stdin.readline  # 빠른 입력을 위해 sys.stdin.readline 사용
 # input()과 동일하게 동작하지만 속도가 더 빠름
@@ -32,7 +32,10 @@ def dfs(x, y, team, N, M, field, visited):
 
 
 def solve(N, M, field):
+    # 방문 여부 저장 (초기에는 전부 False)
     visited = [[False] * N for _ in range(M)]
+
+    # 아군과 적군의 총 전투력
     white_power = 0
     blue_power = 0
 
@@ -49,6 +52,9 @@ def solve(N, M, field):
     return white_power, blue_power
 
 
+# -----------------------------
+# 테스트 코드 (추가)
+# -----------------------------
 def run_test(input_str, expected_output):
     backup_stdin = sys.stdin
     try:
@@ -66,13 +72,5 @@ def run_test(input_str, expected_output):
 
 
 if __name__ == "__main__":
-    if len(sys.argv) == 1:
-        # 온라인 저지 모드 (stdin 입력 받아 실행)
-        N, M = map(int, input().split())
-        field = [list(input().strip()) for _ in range(M)]
-        white_power, blue_power = solve(N, M, field)
-        print(white_power, blue_power)
-    else:
-        # 테스트 모드
-        run_test("5 5\nWBWWW\nWWWWW\nBBBBB\nBBBWW\nWWWBB\n", "130 65")
-        run_test("3 3\nWWW\nBBB\nWWW\n", "18 9")
+    run_test("5 5\nWBWWW\nWWWWW\nBBBBB\nBBBWW\nWWWBB\n", "130 65")
+    run_test("3 3\nWWW\nBBB\nWWW\n", "18 9")
