@@ -70,7 +70,7 @@ def main():
             tc["relation"],
         )
         assert result == tc["expected"], print(
-            f"Error : True= {tc["expected"]} / False = {result}"
+            f"Error : True= {tc['expected']} / False = {result}"
         )
 
         print(f"{i} case 통과")
