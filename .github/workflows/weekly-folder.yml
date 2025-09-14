@@ -20,7 +20,7 @@ jobs:
       id: find_week
       run: |
         # 멤버 폴더 목록
-        members=("juha" "jugwang" "kihong" "jimin" "minseon" )
+        members=("juha" "jugwang" "kihong" "jimin" "minseon" "seojimin")
         
         # 가장 큰 week 번호 찾기
         max_week=0
@@ -49,7 +49,7 @@ jobs:
         next_week=${{ steps.find_week.outputs.next_week }}
         
         # 각 멤버의 폴더에 새로운 week 폴더 생성
-        for member in juha jugwang kihong jimin minseon; do
+        for member in juha jugwang kihong jimin minseon seojimin; do
           if [ -d "$member" ]; then
             week_folder="$member/week$next_week"
             if [ ! -d "$week_folder" ]; then
