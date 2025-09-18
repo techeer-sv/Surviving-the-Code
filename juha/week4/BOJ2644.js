@@ -113,5 +113,7 @@ if (require.main === module) {
   console.log("테스트 3 (7-4, 연결 안됨):", solution(testInput3)); // -1
   console.log("테스트 4 (7-7, 같은 사람):", solution(testInput4)); // 0
 } else {
+  const fs = require("fs");
+  const input = fs.readFileSync(0).toString().trim().split("\n");
   console.log(solution(input));
 }
