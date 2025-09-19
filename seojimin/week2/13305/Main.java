@@ -66,7 +66,7 @@ public class Main {
             // 해당 도시에서부터 제일 오른쪽 도시까지 가는 거리만큼의 기름은 해당 도시에서 전부 구매
             for (int i = cityNum; i < n-1; i++) {
                 won += (cityOilPrice * distance[i]);
-                distance[i] = 0// 기름값이 지불된 거리는 이제 없는 거리로 가정
+                distance[i] = 0;// 기름값이 지불된 거리는 이제 없는 거리로 가정
             }
         }
 
