@@ -20,40 +20,29 @@
  *  - 전체 시간 복잡도 -> O(N)
  */
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+
 import java.util.Arrays;
-import java.util.StringTokenizer;
 
 public class Main {
 
-    public static void main(String[] args) throws IOException{
-
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-
-        int n = Integer.parseInt(br.readLine()); // 학생 수
-        int[] student = new int[n * 2];
-        StringTokenizer st = new StringTokenizer(br.readLine());
-
-        for (int i = 0; i < student.length; i++) {
-            student[i] = Integer.parseInt(st.nextToken());
-        }
-
-        // 학생 코딩 역량 정렬
+    // 팀 역량 최소값 계산 함수
+    static int solve(int n, int[] student) {
         Arrays.sort(student);
 
-        // 팀 매칭
-        int[] team = new int[n];
-        team[0] = student[0] + student[n * 2 - 1];
-
-        int min = team[0];
-
+        int min = student[0] + student[2*n - 1];
         for (int i = 1; i < n; i++) {
-            team[i] = student[i] + student[n*2-1-i];
-            min = Math.min(min, team[i]);
+            int teamPower = student[i] + student[2*n - 1 - i];
+            min = Math.min(min, teamPower);
         }
+        return min;
+    }
 
-        System.out.println(min);
+    public static void main(String[] args) {
+
+        int[] test1 = {1, 2, 3, 4};          // 2팀, 역량: 1+4, 2+3 -> min = 5
+        int[] test2 = {5, 1, 3, 2, 4, 6};    // 3팀, 역량: 1+6, 2+5, 3+4 -> min = 7
+
+        System.out.println("Test1 min team power: " + solve(2, test1));
+        System.out.println("Test2 min team power: " + solve(3, test2));
     }
 }

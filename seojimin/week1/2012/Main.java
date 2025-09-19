@@ -21,32 +21,25 @@
  */
 
 import java.util.Arrays;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.BufferedReader;
 
 public class Main {
 
-    public static void main(String args[]) throws IOException {
-
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-
-        int n = Integer.parseInt(br.readLine());
-        int[] expectedRank = new int[n];
-        for (int i = 0; i < n; i++) {
-            expectedRank[i] = Integer.parseInt(br.readLine());
-        }
-
-        // 예상 등수 정렬
-        Arrays.sort(expectedRank);
-
+    // 불만도 계산 함수
+    static long solve(int[] expectedRank) {
+        Arrays.sort(expectedRank); // 오름차순 정렬
         long bulman = 0;
-
-        for (int i = 1; i <= n; i++) {
-            bulman += Math.abs(i - expectedRank[i-1]);
+        for (int i = 0; i < expectedRank.length; i++) {
+            bulman += Math.abs((i + 1) - expectedRank[i]);
         }
+        return bulman;
+    }
 
-        System.out.println(bulman);
+    public static void main(String[] args) {
+        int[] test1 = {1, 5, 3, 1, 2}; // 예상 결과: 3
+        int[] test2 = {2, 2, 2};       // 예상 결과: 1
+
+        System.out.println("Test1: " + solve(test1)); // 출력: 3
+        System.out.println("Test2: " + solve(test2)); // 출력: 1
     }
 
 }

@@ -33,38 +33,16 @@
  */
 
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.StringTokenizer;
 
 public class Main {
 
-    public static void main(String[] args){
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st = new StringTokenizer(br.readLine());
+    // 택배 최대 적재량 계산
+    static int solve(int n, int c, List<int[]> parcels) {
 
-        int n = Integer.parseInt(st.nextToken()); // 마을 수
-
-        int c = Integer.parseInt(st.nextToken()); // 트럭 용량
-
-        // 택배 배송 정보 개수 m
-        int m = Integer.parseInt(br.readLine());
-        List<int[]> parcels = new ArrayList<>();
-
-        for (int i = 0; i < m; i++) {
-            st = new StringTokenizer(br.readLine());
-
-            int send = Integer.parseInt(st.nextToken());
-            int receive = Integer.parseInt(st.nextToken());
-            int amount = Integer.parseInt(st.nextToken());
-
-            parcels.add(new int[]{send, receive, amount});
-        }
-
-        // 도착지 오름차순 정렬, 도착지가 같으면 출발지 오름차순 정렬
+        // 도착지 오름차순 정렬, 도착지가 같으면 출발지 오름차순
         parcels.sort((a, b) -> {
             if (a[1] == b[1]) return a[0] - b[0];
             return a[1] - b[1];
@@ -72,8 +50,8 @@ public class Main {
 
         int result = 0;
 
-        int[] capacity = new int[n]; // 인덱스 별(마을 별) 용량
-        Arrays.fill(capacity,c); // 초기값 최대 용량으로 세팅
+        int[] capacity = new int[n+1]; // 마을 별 용량
+        Arrays.fill(capacity, c);      // 초기값 트럭 최대 용량
 
         for (int[] p : parcels) {
             int send = p[0];
@@ -81,21 +59,45 @@ public class Main {
             int amount = p[2];
 
             // send~receive 사이 구간에서 가장 작은 잔여 용량 찾기
-            // 그 용량만큼만 적재할 수 있기 때문
             int minRemain = Integer.MAX_VALUE;
             for (int i = send; i < receive; i++) {
                 minRemain = Math.min(minRemain, capacity[i]);
             }
 
-            // 찾아낸 적재 가능 용량만큼 구간들에 적재
-            int canLoad = Math.min(minRemain, amount); // 적재 가능 용량과 택배 수 중 더 적은 수 만큼 적재 가능
+            // 적재 가능한 양 계산
+            int canLoad = Math.min(minRemain, amount);
+
+            // 구간 용량 갱신
             for (int i = send; i < receive; i++) {
-                capacity[i] = capacity[i] - canLoad;
+                capacity[i] -= canLoad;
             }
 
             result += canLoad;
         }
 
-        System.out.println(result);
+        return result;
+    }
+
+    public static void main(String[] args) {
+
+        // 테스트 케이스 1
+        int n1 = 4;
+        int c1 = 40;
+        List<int[]> parcels1 = new ArrayList<>();
+        parcels1.add(new int[]{1, 2, 30});
+        parcels1.add(new int[]{2, 3, 20});
+        parcels1.add(new int[]{3, 4, 10});
+
+        // 테스트 케이스 2
+        int n2 = 6;
+        int c2 = 50;
+        List<int[]> parcels2 = new ArrayList<>();
+        parcels2.add(new int[]{1, 3, 40});
+        parcels2.add(new int[]{2, 5, 20});
+        parcels2.add(new int[]{3, 6, 30});
+        parcels2.add(new int[]{4, 6, 10});
+
+        System.out.println("Test1 max load: " + solve(n1, c1, parcels1)); // 기대값 계산
+        System.out.println("Test2 max load: " + solve(n2, c2, parcels2)); // 기대값 계산
     }
 }

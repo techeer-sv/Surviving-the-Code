@@ -26,64 +26,60 @@ import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.StringTokenizer;
 
-public class Main{
+import java.util.Arrays;
 
-    public static void main(String[] args) throws IOExecption {
+public class Main {
 
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-
-        StringTokenizer st;
-
-        // 첫 번째 줄 입력
-        st= new StringTokenizer(br.readLine());
-        int n = Integer.parseInt(st.nextToken()); // 전체 카약 수
-        int s = Integer.parseInt(st.nextToken()); // 파손 카약 수
-        int r = Integer.parseInt(st.nextToken()); // 여분 카약 보유 수
-
-        // 두 번째 줄 입력
+    static int solve(int n, int[] broken, int[] extra) {
         int[] kayak = new int[n];
-        Arrays.fill(kayak, 1); // 기본 카약 개수 1개로 설정
-        st= new StringTokenizer(br.readLine());
+        Arrays.fill(kayak, 1); // 기본 카약 1개
 
-        while(st.hasMoreTokens()){
-            kayak[Integer.parseInt(st.nextToken()) - 1] = 0; // 카약이 파손된 팀은 보유 카약 0으로 설정
+        // 파손된 카약
+        for (int b : broken) {
+            kayak[b - 1] = 0; // 파손된 팀은 0
         }
 
-        // 세 번째 줄 입력
-        st= new StringTokenizer(br.readLine());
-
-        while(st.hasMoreTokens()){
-            kayak[Integer.parseInt(st.nextToken()) - 1]++; // 여분의 카약을 보유한 팀은 카약의 수 1 증가
+        // 여분 카약
+        for (int e : extra) {
+            kayak[e - 1]++; // 여분 있으면 1 증가 (기본 1+1=2)
         }
 
-        for (int i = 0; i < n-1; i++) {
-            // 만약 여분의 카약을 갖고 있다면
-            if (kayak[i] == 2){
-                // 다음 팀 카약 파손 여부를 확인해, 파손되었다면 넘겨주자
-                if (kayak[i+1] == 0){
-                    kayak[i+1]++;
+        for (int i = 0; i < n - 1; i++) {
+            if (kayak[i] == 2) {
+                if (kayak[i + 1] == 0) { // 오른쪽 팀 파손 시 나눠줌
                     kayak[i]--;
+                    kayak[i + 1]++;
                 }
                 continue;
             }
 
-            // 카약이 파손된 팀 일때
-            if (kayak[i] == 0){
-                // 만약 오른쪽에 있는(1이 더 큰) 팀에 여분의 카약이 있다면 가져오자
-                if (kayak[i+1] == 2){
+            if (kayak[i] == 0) {
+                if (kayak[i + 1] == 2) { // 오른쪽 팀 여분 시 가져옴
                     kayak[i]++;
-                    kayak[i+1]--;
+                    kayak[i + 1]--;
                 }
             }
         }
 
-        // 출전 불가 팀 체크
         int result = 0;
-        for (int i = 0; i < n; i++) {
-            if (kayak[i] == 0) result++;
+        for (int k : kayak) {
+            if (k == 0) result++;
         }
-
-        System.out.println(result);
+        return result;
     }
 
+    public static void main(String[] args) {
+        // 테스트 케이스 1
+        int n1 = 5;
+        int[] broken1 = {2, 4};
+        int[] extra1 = {3, 5};
+
+        // 테스트 케이스 2
+        int n2 = 7;
+        int[] broken2 = {3, 6};
+        int[] extra2 = {2, 4};
+
+        System.out.println("Test1 result: " + solve(n1, broken1, extra1)); // 기대값 계산
+        System.out.println("Test2 result: " + solve(n2, broken2, extra2)); // 기대값 계산
+    }
 }
