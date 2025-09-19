@@ -22,54 +22,54 @@
  * - 전체 시간 복잡도 -> O(n^2)
  */
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.Arrays;
-import java.util.StringTokenizer;
 
 public class Main {
 
-    public static void main(String[] args) throws IOException{
+    static long solve(int[] distance, int[] oilPrice) {
+        int n = oilPrice.length;
 
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-
-        int n = Integer.parseInt(br.readLine()); // 도시의 수
-
-        StringTokenizer st = new StringTokenizer(br.readLine());
-        int[] distance = new int[n-1];
-        for (int i = 0; i < n - 1; i++) {
-            distance[i] = Integer.parseInt(st.nextToken()); // 도시간 거리 저장
-        }
-
-        st = new StringTokenizer(br.readLine());
-
-        int[][] oilPrice = new int[n][2];
+        // 도시별 기름값과 도시 번호
+        int[][] cityInfo = new int[n][2];
         for (int i = 0; i < n; i++) {
-            oilPrice[i][0] = i; // 해당 기름값을 보유한 도시
-            oilPrice[i][1] = Integer.parseInt(st.nextToken()); // 도시 별 기름값 저장
+            cityInfo[i][0] = i;
+            cityInfo[i][1] = oilPrice[i];
         }
-        Arrays.sort(oilPrice, (o1, o2) -> {
-            if (o1[1] == o2[1]){
-                return o1[0] - o2[0]; // 만약 기름값이 같으면, 마을 순서로 오름차순 정렬
-            }
-            return o1[1] - o2[1]; // 기름값 오름차순 정렬
+
+        // 기름값 기준 오름차순 정렬, 같으면 도시 순서 기준
+        Arrays.sort(cityInfo, (a, b) -> {
+            if (a[1] == b[1]) return a[0] - b[0];
+            return a[1] - b[1];
         });
 
-        long won = 0; // 0원 부터 시작, 20억을 초과할 가능성이 있어 long타입 설정
+        int[] dist = Arrays.copyOf(distance, distance.length); // 거리 배열 복사
+        long totalCost = 0;
 
-        for (int[] city : oilPrice) {
-            int cityNum = city[0]; // 해당 도시의 순서
-            if (cityNum == n-1) continue; // 마지막 마을은 해당사항 없으므로 생략
-            int cityOilPrice = city[1]; // 해당 도시의 기름값
+        for (int[] city : cityInfo) {
+            int cityNum = city[0];
+            int cityOil = city[1];
 
-            // 해당 도시에서부터 제일 오른쪽 도시까지 가는 거리만큼의 기름은 해당 도시에서 전부 구매
-            for (int i = cityNum; i < n-1; i++) {
-                won += (cityOilPrice * distance[i]);
-                distance[i] = 0;// 기름값이 지불된 거리는 이제 없는 거리로 가정
+            if (cityNum == n - 1) continue; // 마지막 도시는 스킵
+
+            for (int i = cityNum; i < n - 1; i++) {
+                if (dist[i] == 0) continue; // 이미 기름값 계산된 거리
+                totalCost += (long) cityOil * dist[i];
+                dist[i] = 0; // 계산 완료 처리
             }
         }
 
-        System.out.println(won);
+        return totalCost;
+    }
+
+    public static void main(String[] args) {
+        // 테스트 케이스 1
+        int[] distance1 = {2, 3, 1}; // 도시 간 거리
+        int[] oilPrice1 = {5, 2, 4, 1}; // 도시별 기름값
+        System.out.println("Test1 total cost: " + solve(distance1, oilPrice1));
+
+        // 테스트 케이스 2
+        int[] distance2 = {3, 3, 4, 2};
+        int[] oilPrice2 = {7, 6, 3, 2, 5};
+        System.out.println("Test2 total cost: " + solve(distance2, oilPrice2));
     }
 }

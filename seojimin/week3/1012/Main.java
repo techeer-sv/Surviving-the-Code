@@ -22,57 +22,35 @@
  * - 전체 시간 복잡도 -> O(n*m)
  */
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.StringTokenizer;
-
-public class Main{
+public class Main {
 
     static int n;
     static int m;
-    static boolean visited[][];
-    static int board[][];
-
-    // 상하좌우 이동
+    static boolean[][] visited;
+    static int[][] board;
     static int[] dx = {-1,1,0,0};
     static int[] dy = {0,0,-1,1};
 
-    public static void main(String[] args) throws IOException {
+    static int solve(int m, int n, int[][] cabbagePositions) {
+        Main.m = m;
+        Main.n = n;
+        board = new int[m][n];
+        visited = new boolean[m][n];
 
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        int t = Integer.parseInt(br.readLine());
+        for (int[] pos : cabbagePositions) {
+            board[pos[0]][pos[1]] = 1;
+        }
 
-        while(t > 0){
-            StringTokenizer st = new StringTokenizer(br.readLine());
-
-            m = Integer.parseInt(st.nextToken()); // 세로 길이
-            n = Integer.parseInt(st.nextToken()); // 가로 길이
-            int k = Integer.parseInt(st.nextToken()); // 배추 개수
-
-            // 배추 정보 입력
-            board = new int[m][n];
-            visited = new boolean[m][n];
-
-            for (int i = 0; i < k; i++) {
-                st = new StringTokenizer(br.readLine());
-                board[Integer.parseInt(st.nextToken())][Integer.parseInt(st.nextToken())] = 1;
-            }
-
-            // 모든 칸 탐색
-            int count = 0;
-            for (int i = 0; i < m; i++) {
-                for (int j = 0; j < n; j++) {
-                    if (!visited[i][j] && board[i][j] == 1){
-                        dfs(i, j);
-                        count++;
-                    }
+        int count = 0;
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (!visited[i][j] && board[i][j] == 1) {
+                    dfs(i,j);
+                    count++;
                 }
             }
-
-            System.out.println(count);
-            t--;
         }
+        return count;
     }
 
     static void dfs(int x, int y){
@@ -88,5 +66,13 @@ public class Main{
                 }
             }
         }
+    }
+
+    public static void main(String[] args){
+        int[][] test1 = {{0,0},{1,0},{1,1}};
+        System.out.println(solve(2,2,test1));
+
+        int[][] test2 = {{0,1},{0,2},{1,2},{2,2}};
+        System.out.println(solve(3,3,test2));
     }
 }

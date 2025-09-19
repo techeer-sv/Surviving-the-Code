@@ -28,56 +28,42 @@
  * - 전체 시간 복잡도 -> O(n^2)
  */
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-
-public class Main{
+public class Main {
 
     static int[][] board;
     static boolean[][] visited;
     static int n;
-    static String result;
 
-    public static void main(String[] args) throws IOException {
-
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-
-        n = Integer.parseInt(br.readLine());
-        board = new int[n][n]; // 격자는 n*n크기
-        visited = new boolean[n][n]; // 방문 여부, 즉 시도했는지 여부
-
-        for (int i = 0; i < n; i++) { // 보드에 값 삽입
-            StringTokenizer st = new StringTokenizer(br.readLine());
-            for (int j = 0; j < n; j++) {
-                board[i][j] = Integer.parseInt(st.nextToken());
-            }
-        }
-
-        result = "Hing";
-        jump(0, 0);
-
-        System.out.println(result);
+    static boolean solve(int[][] inputBoard) {
+        n = inputBoard.length;
+        board = inputBoard;
+        visited = new boolean[n][n];
+        return jump(0, 0);
     }
 
-    // 점프하는 메서드
-    public static void jump(int x, int y) {
-        if (x >= n || y >= n || visited[x][y]) return; // 구역 벗어나거나 이미 시도한 거면 종료
+    static boolean jump(int x, int y) {
+        if (x >= n || y >= n || visited[x][y]) return false;
         visited[x][y] = true;
 
-        if (board[x][y]==-1) {
-            result = "HaruHaru";
-            return;
-        }
+        if (board[x][y] == -1) return true;
 
-        // 아래로 점프 (행 증가)
-        if (x + board[x][y] < n) {
-            jump(x + board[x][y], y);
-        }
+        // 아래로 점프
+        if (jump(x + board[x][y], y)) return true;
 
-        // 오른쪽으로 점프 (열 증가)
-        if (y + board[x][y] < n) {
-            jump(x, y + board[x][y]);
-        }
+        // 오른쪽으로 점프
+        if (jump(x, y + board[x][y])) return true;
+
+        return false;
+    }
+
+    public static void main(String[] args) {
+        int[][] testBoard = {
+                {2, 3, 3, 1},
+                {1, 2, 1, 3},
+                {1, 2, 3, 1},
+                {3, 1, 1, -1}
+        };
+
+        System.out.println(solve(testBoard) ? "HaruHaru" : "Hing");
     }
 }

@@ -16,43 +16,34 @@
  * - 전체 시간 복잡도 -> O(N)
  */
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.StringTokenizer;
-
 public class Main {
 
-    public static void main(String[] args) throws IOException {
-
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st = new StringTokenizer(br.readLine());
-
-        int a = Integer.parseInt(st.nextToken()); // 시작 숫자
-        int b = Integer.parseInt(st.nextToken()); // 목표 숫자
-
+    static int solve(int a, int b) {
         int count = 0;
+
         while (a < b) {
-            // a == b 라면 종료
-            if (a == b) {
-                break;
-            }
-
-            // b의 끝자리가 1인 경우
             if (b % 10 == 1) {
+                b /= 10;
                 count++;
-                b = b / 10;
-            }
-
-            // b가 2의 배수인 경우
-            else if (b % 2 == 0){
+            } else if (b % 2 == 0) {
+                b /= 2;
                 count++;
-                b = b / 2;
+            } else {
+                return -1; // 더 이상 연산 불가능
             }
-
-            else break; // 만약 위의 두 케이스 모두 적용 불가능할 시
         }
 
-        System.out.println(count);
+        if (a == b) return count + 1; // 마지막 연산 포함
+        return -1;
+    }
+
+    public static void main(String[] args) {
+        // 테스트 케이스 1
+        int a1 = 2, b1 = 162;
+        System.out.println("Test1 operations: " + solve(a1, b1)); // 기대값: 5
+
+        // 테스트 케이스 2
+        int a2 = 4, b2 = 42;
+        System.out.println("Test2 operations: " + solve(a2, b2)); // 기대값: -1
     }
 }

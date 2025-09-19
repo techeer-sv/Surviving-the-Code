@@ -23,51 +23,28 @@
  * - 전체 시간 복잡도 -> O(m*n)
  */
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.StringTokenizer;
-
 public class Main {
 
     static boolean[][] visited;
     static char[][] soldiers;
     static int n;
     static int m;
-    static int whitePower = 0;
-    static int bluePower = 0;
-
-    // 상하좌우 이동
     static int[] dx = {-1,1,0,0};
     static int[] dy = {0,0,-1,1};
 
-    public static void main(String[] args) throws IOException {
-
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st = new StringTokenizer(br.readLine());
-
-        n = Integer.parseInt(st.nextToken()); // 가로 크기
-        m = Integer.parseInt(st.nextToken()); // 세로 크기
-
-        soldiers = new char[m][n];
+    static int[] solve(int m, int n, char[][] grid) {
+        Main.m = m;
+        Main.n = n;
+        soldiers = grid;
         visited = new boolean[m][n];
 
-        // 군사 정보 입력 받기
-        for (int i = 0; i < m; i++) {
-            String line = br.readLine();
-            for (int j = 0; j < n; j++) {
-                soldiers[i][j] = line.charAt(j);
-            }
-        }
+        int whitePower = 0;
+        int bluePower = 0;
 
-        // 모든 칸 탐색
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
-                // 만약 방문되지 않은 인덱스면
                 if (!visited[i][j]) {
-                    // dfs를 돌려 인접 군사 수를 가져옴
                     int size = dfs(i, j, soldiers[i][j]);
-                    // 인접 군사수를 자신의 진영에 맞게 제곱해서 더함
                     if (soldiers[i][j] == 'W') {
                         whitePower += size * size;
                     } else {
@@ -77,33 +54,33 @@ public class Main {
             }
         }
 
-        System.out.println(whitePower + " " + bluePower);
-
+        return new int[]{whitePower, bluePower};
     }
 
-    // 해당 인덱스의 연결된 군사의 수를 카운트해서 넘긴다
     static int dfs(int x, int y, char color) {
-        // 방문하는 인덱스에는 방문 표시
         visited[x][y] = true;
-
-        // 자신 포함 1로 시작
         int count = 1;
 
-        // 상,하,좌,우를 다 체크
         for (int d = 0; d < 4; d++) {
             int nx = x + dx[d];
             int ny = y + dy[d];
 
-            // 만약 x,y가 0보다 크거나 같고, m혹은 n보다 작으면 -> 즉 어느 끝부분을 넘어간 것이 아니면
-            if (nx >= 0 && nx < m && ny >= 0 && ny < n) {
-                // 해당 인접 영역이 방문되었는지 그리고 그 영역의 군사 색은 어떤건지 판단
+            if (nx >= 0 && nx < m && ny >=0 && ny < n) {
                 if (!visited[nx][ny] && soldiers[nx][ny] == color) {
-                    // 만약 같은 진영의 군사라면, 해당 병사로부터 얼마나 인접했는지 dfs 재귀
                     count += dfs(nx, ny, color);
                 }
             }
         }
-
         return count;
+    }
+
+    public static void main(String[] args) {
+        char[][] test = {
+                {'W','W','B'},
+                {'B','B','B'},
+                {'W','B','W'}
+        };
+        int[] result = solve(3, 3, test);
+        System.out.println(result[0] + " " + result[1]); // whitePower bluePower 출력
     }
 }

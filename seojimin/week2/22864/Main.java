@@ -21,37 +21,37 @@
  * - 전체 시간 복잡도 -> O(n)
  */
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.StringTokenizer;
+public class Main {
 
-public class Main{
-
-    public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st = new StringTokenizer(br.readLine());
-
-        int a = Integer.parseInt(st.nextToken()); // 시간별 피로도
-        int b = Integer.parseInt(st.nextToken()); // 시간별 일처리
-        int c = Integer.parseInt(st.nextToken()); // 시간별 회복량
-        int m = Integer.parseInt(st.nextToken()); // 한계 피로도
-
+    static int solve(int a, int b, int c, int m) {
         int work = 0;
         int piro = 0;
+
+        // 한 시간 일하면 바로 한계 초과라면 불가능
+        if (a > m) return 0;
+
         for (int i = 0; i < 24; i++) {
-            if (piro + a > m){ // 휴식이 필요한 상태라면
-                piro -= c; // c만큼 회복
-                if (piro < 0){
-                    piro = 0;
-                }
-                continue;
+            if (piro + a > m) {
+                // 휴식
+                piro -= c;
+                if (piro < 0) piro = 0;
+            } else {
+                // 일 수행
+                work += b;
+                piro += a;
             }
-            // 일 할 수 있는 상태면
-            work += b;
-            piro += a;
         }
 
-        System.out.println(work);
+        return work;
+    }
+
+    public static void main(String[] args) {
+        // 테스트 케이스 1
+        int a1 = 3, b1 = 4, c1 = 2, m1 = 10;
+        System.out.println("Test1 max work: " + solve(a1, b1, c1, m1)); // 기대값 출력
+
+        // 테스트 케이스 2
+        int a2 = 5, b2 = 3, c2 = 1, m2 = 20;
+        System.out.println("Test2 max work: " + solve(a2, b2, c2, m2)); // 기대값 출력
     }
 }

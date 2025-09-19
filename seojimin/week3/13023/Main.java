@@ -30,66 +30,49 @@
  * - 인접 리스트 사용 시: O(N * k^4) → 충분히 통과 가능
  */
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.IOException;
-import java.util.StringTokenizer;
+import java.util.ArrayList;
 
 public class Main {
 
-
     static boolean[] visited;
     static ArrayList<Integer>[] graph;
-    static int m;
     static int n;
 
-    public static void main(String[] args) throws IOException {
-
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st = new StringTokenizer(br.readLine());
-
-        n = Integer.parseInt(st.nextToken());
-        m = Integer.parseInt(st.nextToken());
-
+    static boolean solve(int n, int[][] friends) {
+        Main.n = n;
         visited = new boolean[n];
-
         graph = new ArrayList[n];
         for (int i = 0; i < n; i++) graph[i] = new ArrayList<>();
 
-        for (int i = 0; i < m; i++) {
-            st = new StringTokenizer(br.readLine());
-            int friend1 = Integer.parseInt(st.nextToken());
-            int friend2 = Integer.parseInt(st.nextToken());
-            graph[friend1].add(friend2);
-            graph[friend2].add(friend1);
+        for (int[] f : friends) {
+            graph[f[0]].add(f[1]);
+            graph[f[1]].add(f[0]);
         }
 
         for (int i = 0; i < n; i++) {
-            if(dfs(0, i)){
-                System.out.println(1);
-                return;
-            }
+            if(dfs(0, i)) return true;
         }
-        System.out.println(0);
+        return false;
     }
 
     static boolean dfs(int count, int x) {
-        if (count == 4) {
-            return true;
-        }
-
+        if (count == 4) return true;
         visited[x] = true;
 
         for (int next : graph[x]) {
-            if (!visited[next]){
-                if (dfs(count+1, next)) return true;
+            if (!visited[next]) {
+                if (dfs(count + 1, next)) return true;
             }
         }
 
         visited[x] = false;
         return false;
     }
+
+    public static void main(String[] args) {
+        int[][] friends = {
+                {0,1},{1,2},{2,3},{3,4}
+        };
+        System.out.println(solve(5, friends) ? 1 : 0); // 1 출력
+    }
 }
-
-
-
