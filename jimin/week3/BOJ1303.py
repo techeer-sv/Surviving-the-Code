@@ -1,5 +1,3 @@
-
-
 def solve(board: list, n, m):
 
     def dfs(board, visited, x, y):
