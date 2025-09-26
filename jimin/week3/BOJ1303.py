@@ -7,10 +7,10 @@ def solve(board: list, n, m):
             nx = x + dx[i]
             ny = y + dy[i]
             if (
-                    0 <= nx < n
-                    and 0 <= ny < m
-                    and not visited[ny][nx]
-                    and board[y][x] == board[ny][nx]
+                0 <= nx < n
+                and 0 <= ny < m
+                and not visited[ny][nx]
+                and board[y][x] == board[ny][nx]
             ):
                 num += dfs(board, visited, nx, ny)
         return num + 1
