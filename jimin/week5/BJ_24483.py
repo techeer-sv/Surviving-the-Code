@@ -72,6 +72,6 @@ if __name__ == "__main__":
     for i, tc in enumerate(cases, 1):
         actual = run_dfs(tc["N"], tc["M"], tc["R"], tc["edges"])
         assert (
-                actual == tc["expected"]
+            actual == tc["expected"]
         ), f"[{i}] {tc['name']} 실패: expected={tc['expected']}, actual={actual}"
         print(f"[{i}] {tc['name']} 성공")
