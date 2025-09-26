@@ -1,76 +1,61 @@
-# 시간 표기법 : O(N × M)
-import io
-import sys
 
-input = sys.stdin.readline  # 빠른 입력을 위해 sys.stdin.readline 사용
-# input()과 동일하게 동작하지만 속도가 더 빠름
+def solve(board: list, n, m):
 
+    def dfs(board, visited, x, y):
+        visited[y][x] = True
+        num = 0
+        for i in range(4):
+            nx = x + dx[i]
+            ny = y + dy[i]
+            if (
+                    0 <= nx < n
+                    and 0 <= ny < m
+                    and not visited[ny][nx]
+                    and board[y][x] == board[ny][nx]
+            ):
+                num += dfs(board, visited, nx, ny)
+        return num + 1
 
-# DFS (스택 사용) 함수: (x, y) 좌표에서 시작해 같은 팀(team) 군집을 탐색
-def dfs(x, y, team, N, M, field, visited):
-    stack = [(x, y)]  # 스택에 시작 좌표 넣기
-    visited[y][x] = True  # 방문 처리
-    count = 1  # 군집 크기(시작 좌표 포함)
-
-    # 상, 하, 좌, 우 방향 (대각선은 포함하지 않음)
-    directions = [(1, 0), (-1, 0), (0, 1), (0, -1)]
-
-    # 스택이 빌 때까지 반복
-    while stack:
-        cx, cy = stack.pop()  # 스택에서 하나 꺼냄
-        for dx, dy in directions:  # 네 방향 확인
-            nx, ny = cx + dx, cy + dy
-            # 1) 전쟁터 범위 안에 있고
-            if 0 <= nx < N and 0 <= ny < M:
-                # 2) 방문하지 않았고
-                # 3) 같은 팀 병사라면
-                if not visited[ny][nx] and field[ny][nx] == team:
-                    visited[ny][nx] = True  # 방문 처리
-                    stack.append((nx, ny))  # 스택에 추가해서 이어 탐색
-                    count += 1  # 군집 크기 증가
-    return count  # 최종 군집 크기 반환
-
-
-def solve(N, M, field):
-    # 방문 여부 저장 (초기에는 전부 False)
-    visited = [[False] * N for _ in range(M)]
-
-    # 아군과 적군의 총 전투력
-    white_power = 0
-    blue_power = 0
-
-    # 전쟁터 전체를 탐색
-    for y in range(M):  # 세로
-        for x in range(N):  # 가로
-            if not visited[y][x]:  # 아직 방문하지 않은 칸이라면
-                team = field[y][x]  # 병사 팀 색 ('W' 또는 'B')
-                size = dfs(x, y, team, N, M, field, visited)  # 해당 군집 크기 계산
-                if team == "W":  # 아군일 경우
-                    white_power += size * size
-                else:  # 적군일 경우 ('B')
-                    blue_power += size * size
-    return white_power, blue_power
+    dx = [0, 0, 1, -1]
+    dy = [1, -1, 0, 0]
+    visited = [[False] * n for _ in range(m)]
+    w_sum = 0
+    b_sum = 0
+    for y in range(m):
+        for x in range(n):
+            if not visited[y][x]:
+                num = dfs(board, visited, x, y)
+                num *= num
+                if board[y][x] == "W":
+                    w_sum += num
+                else:
+                    b_sum += num
+    return w_sum, b_sum
 
 
-# -----------------------------
-# 테스트 코드 (추가)
-# -----------------------------
-def run_test(input_str, expected_output):
-    backup_stdin = sys.stdin
-    try:
-        sys.stdin = io.StringIO(input_str)
-        N, M = map(int, sys.stdin.readline().split())
-        field = [list(sys.stdin.readline().strip()) for _ in range(M)]
-        result = solve(N, M, field)
-        output = f"{result[0]} {result[1]}"
-        assert (
-                output == expected_output
-        ), f"실패: 기대값={expected_output}, 실제={output}"
-        print(f"테스트 성공 ✅ 입력:\n{input_str.strip()}\n출력: {output}")
-    finally:
-        sys.stdin = backup_stdin
+def main():
+    cases = [
+        {
+            "n": 5,
+            "m": 5,
+            "board": [
+                "WBWWW",
+                "WWWWW",
+                "BBBBB",
+                "BBBWW",
+                "WWWWW",
+            ],
+            "expected": (130, 65),
+        }
+    ]
+    for i, tc in enumerate(cases):
+        result = solve(tc["board"], tc["n"], tc["m"])
+        assert tc["expected"] == result, (
+            f"[{i}] 실패: " f"expected={tc['expected']}, actual_result={result}, "
+        )
+        print(f"test [{i}] 성공")
 
 
 if __name__ == "__main__":
-    run_test("5 5\nWBWWW\nWWWWW\nBBBBB\nBBBWW\nWWWBB\n", "130 65")
-    run_test("3 3\nWWW\nBBB\nWWW\n", "18 9")
+    main()
+
