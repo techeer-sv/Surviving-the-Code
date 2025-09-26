@@ -11,43 +11,31 @@
 
 
 def a(board, n):
-    # 방문 여부를 기록할 2차원 배열 (처음엔 전부 False)
     visited = [[False] * n for _ in range(n)]
-    # DFS를 위한 스택, 출발점 (0,0)에서 시작
-    stack = [(0, 0)]
+    stack = [(0, 0)]  # (y, x)
 
-    # 스택이 빌 때까지 반복
     while stack:
-        # 스택에서 현재 위치를 꺼냄
-        x, y = stack.pop()
+        y, x = stack.pop()
 
-        # 현재 좌표가 보드 범위를 벗어나면 이 경로는 무효 → 건너뜀
-        if x < 0 or y < 0 or x >= n or y >= n:
+        if y < 0 or x < 0 or y >= n or x >= n:
             continue
 
-        # 이미 방문한 좌표라면 다시 방문할 필요 없음 → 건너뜀
-        if visited[x][y]:
+        if visited[y][x]:
             continue
 
-        # 처음 방문했으므로 방문 처리
-        visited[x][y] = True
+        visited[y][x] = True
 
-        # 현재 칸이 도착점(-1)이라면 성공 → True 반환
-        if board[x][y] == -1:
+        if board[y][x] == -1:
             return True
 
-        # 현재 칸에 적힌 숫자(점프할 칸 수) 확인
-        jump = board[x][y]
-
-        # 0이면 이동할 수 없으므로 더 탐색 불가 → 건너뜀
+        jump = board[y][x]
         if jump == 0:
             continue
 
-        # 오른쪽, 아래쪽으로 점프 가능한 칸을 스택에 추가
-        stack.append((x, y + jump))  # 오른쪽 이동
-        stack.append((x + jump, y))  # 아래쪽 이동
+        # 오른쪽, 아래쪽
+        stack.append((y, x + jump))
+        stack.append((y + jump, x))
 
-    # 스택이 다 빌 때까지 도착점을 못 찾으면 실패 → False 반환
     return False
 
 
