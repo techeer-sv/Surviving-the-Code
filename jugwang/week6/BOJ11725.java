@@ -43,6 +43,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 class Solution {
+    // 부모 노드 배열
     int[] parents;
 
     public Solution(int nodeNum) {
@@ -54,6 +55,7 @@ class Solution {
         for (int i = 0; i <= nodeNum; i++) {
             graph.add(new ArrayList<>());
         }
+        // 간선 정보로 그래프 구성
         for (int i = 0; i < node.length; i++) {
             graph.get(node[i][0]).add(node[i][1]);
             graph.get(node[i][1]).add(node[i][0]);
@@ -71,14 +73,21 @@ class Solution {
 
         Queue<Integer> queue = new LinkedList<>();
 
+        // 시작지점 방문 처리
         visited[1] = true;
+        // 큐에 시작 지점 추가
         queue.add(1);
         while (!queue.isEmpty()) {
+            // 큐에서 노드 추출
             int currentNode = queue.poll();
+            // 인접 노드 탐색
             for (int child : graph.get(currentNode)) {
+                // 방문하지 않았다면
                 if (!visited[child]) {
+                    // 방문 처리 및 부모 노드 설정
                     visited[child] = true;
                     parents[child] = currentNode;
+                    // 큐에 자식 노드 추가
                     queue.add(child);
                 }
             }

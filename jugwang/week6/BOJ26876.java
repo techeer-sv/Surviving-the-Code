@@ -78,10 +78,13 @@ class Solution {
         queue.add(new int[]{hour, minute, 0});
 
         while (!queue.isEmpty()) {
+            // 큐에서 추출
             int[] qPoll = queue.poll();
+            // x,y 좌표와 현재까지의 이동 횟수 추출
             int cHour = qPoll[0];
             int cMinute = qPoll[1];
             int count = qPoll[2];
+            // 시간에 도달시 ans에 count 저장 후 종료
             if (cHour == targethour && cMinute == targetminute) {
                 ans = count;
                 return;
@@ -91,15 +94,16 @@ class Solution {
                 int nHour = cHour + dHour[i];
                 int nMinute = cMinute + dMinute[i];
 
+                // 60분 도달시 시간 +1, 분 0으로 순환 처리
                 if (nMinute == 60) {
                     nHour++;
                     nMinute = 0;
                 }
-
+                // 24시간 도달시 0으로 순환 처리
                 if (nHour == 24) {
                     nHour = 0;
                 }
-
+                // 방문하지 않았다면 방문처리 및 큐에 추가
                 if(!visited[nHour][nMinute]) {
                     visited[nHour][nMinute] = true;
                     queue.add(new int[]{nHour, nMinute, count+1});
