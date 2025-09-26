@@ -52,9 +52,6 @@ def solve(N, M, field):
     return white_power, blue_power
 
 
-# -----------------------------
-# 테스트 코드 (추가)
-# -----------------------------
 def run_test(input_str, expected_output):
     backup_stdin = sys.stdin
     try:
