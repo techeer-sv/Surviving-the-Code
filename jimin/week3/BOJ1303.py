@@ -3,10 +3,9 @@ import io
 import sys
 
 input = sys.stdin.readline  # 빠른 입력을 위해 sys.stdin.readline 사용
-# input()과 동일하게 동작하지만 속도가 더 빠름
 
 
-# DFS (스택 사용) 함수: (x, y) 좌표에서 시작해 같은 팀(team) 군집을 탐색
+# DFS (스택 사용) 함수: (y, x) 좌표에서 시작해 같은 팀(team) 군집을 탐색
 def dfs(y, x, team, N, M, field, visited):
     stack = [(y, x)]  # (행, 열)
     visited[y][x] = True
@@ -44,27 +43,6 @@ def solve(N, M, field):
     return white_power, blue_power
 
 
-def solve(N, M, field):
-    # 방문 여부 저장 (초기에는 전부 False)
-    visited = [[False] * N for _ in range(M)]
-
-    # 아군과 적군의 총 전투력
-    white_power = 0
-    blue_power = 0
-
-    # 전쟁터 전체를 탐색
-    for y in range(M):  # 세로
-        for x in range(N):  # 가로
-            if not visited[y][x]:  # 아직 방문하지 않은 칸이라면
-                team = field[y][x]  # 병사 팀 색 ('W' 또는 'B')
-                size = dfs(x, y, team, N, M, field, visited)  # 해당 군집 크기 계산
-                if team == "W":  # 아군일 경우
-                    white_power += size * size
-                else:  # 적군일 경우 ('B')
-                    blue_power += size * size
-    return white_power, blue_power
-
-
 def run_test(input_str, expected_output):
     backup_stdin = sys.stdin
     try:
@@ -74,7 +52,7 @@ def run_test(input_str, expected_output):
         result = solve(N, M, field)
         output = f"{result[0]} {result[1]}"
         assert (
-            output == expected_output
+                output == expected_output
         ), f"실패: 기대값={expected_output}, 실제={output}"
         print(f"테스트 성공 ✅ 입력:\n{input_str.strip()}\n출력: {output}")
     finally:
