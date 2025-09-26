@@ -1,4 +1,3 @@
-
 def solve(board: list, n, m):
 
     def dfs(board, visited, x, y):
@@ -58,4 +57,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
