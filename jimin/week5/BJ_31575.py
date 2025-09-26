@@ -5,10 +5,6 @@
 # 도착 위치: (M-1, N-1) (우하단)
 # 이동은 오른쪽(→) 또는 아래쪽(↓) 으로만 가능
 # 도착 가능하면 "Yes", 아니면 "No"
-
-import sys
-
-
 def solve_item(N, M, grid):
     # 방문 여부
     visited = [[False] * N for _ in range(M)]
