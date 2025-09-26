@@ -14,6 +14,9 @@
  * - 최악의 경우 모든 칸 방문 -> O(100) -> O(1)
  */
 
+import java.util.Queue;
+import java.util.LinkedList;
+
 public class Main {
 
     static boolean[][] visited;

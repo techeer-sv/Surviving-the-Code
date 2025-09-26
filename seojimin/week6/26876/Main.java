@@ -25,6 +25,9 @@
  *  - 해결방법 2 -> 최대로 연산하는 경우갸 24 * 60 -> O(24 * 60) -> O(1)
  */
 
+import java.util.Queue;
+import java.util.LinkedList;
+
 public class Main {
 
     static int solve1(int startH, int startM, int endH, int endM){
