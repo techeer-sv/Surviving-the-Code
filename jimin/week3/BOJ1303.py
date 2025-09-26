@@ -7,28 +7,41 @@ input = sys.stdin.readline  # 빠른 입력을 위해 sys.stdin.readline 사용
 
 
 # DFS (스택 사용) 함수: (x, y) 좌표에서 시작해 같은 팀(team) 군집을 탐색
-def dfs(x, y, team, N, M, field, visited):
-    stack = [(x, y)]  # 스택에 시작 좌표 넣기
-    visited[y][x] = True  # 방문 처리
-    count = 1  # 군집 크기(시작 좌표 포함)
+def dfs(y, x, team, N, M, field, visited):
+    stack = [(y, x)]  # (행, 열)
+    visited[y][x] = True
+    count = 1
 
-    # 상, 하, 좌, 우 방향 (대각선은 포함하지 않음)
+    # 상, 하, 좌, 우
     directions = [(1, 0), (-1, 0), (0, 1), (0, -1)]
 
-    # 스택이 빌 때까지 반복
     while stack:
-        cx, cy = stack.pop()  # 스택에서 하나 꺼냄
-        for dx, dy in directions:  # 네 방향 확인
-            nx, ny = cx + dx, cy + dy
-            # 1) 전쟁터 범위 안에 있고
-            if 0 <= nx < N and 0 <= ny < M:
-                # 2) 방문하지 않았고
-                # 3) 같은 팀 병사라면
+        cy, cx = stack.pop()
+        for dy, dx in directions:
+            ny, nx = cy + dy, cx + dx
+            if 0 <= ny < M and 0 <= nx < N:
                 if not visited[ny][nx] and field[ny][nx] == team:
-                    visited[ny][nx] = True  # 방문 처리
-                    stack.append((nx, ny))  # 스택에 추가해서 이어 탐색
-                    count += 1  # 군집 크기 증가
-    return count  # 최종 군집 크기 반환
+                    visited[ny][nx] = True
+                    stack.append((ny, nx))
+                    count += 1
+    return count
+
+
+def solve(N, M, field):
+    visited = [[False] * N for _ in range(M)]
+    white_power = 0
+    blue_power = 0
+
+    for y in range(M):
+        for x in range(N):
+            if not visited[y][x]:
+                team = field[y][x]
+                size = dfs(y, x, team, N, M, field, visited)
+                if team == "W":
+                    white_power += size * size
+                else:
+                    blue_power += size * size
+    return white_power, blue_power
 
 
 def solve(N, M, field):
