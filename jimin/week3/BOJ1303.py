@@ -55,6 +55,7 @@ def main():
         )
         print(f"test [{i}] 성공")
 
+
 if __name__ == "__main__":
     main()
 
