@@ -65,6 +65,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
+// 바이러스 확산 시뮬레이션을 위한 노드 클래스
 class Node {
     public int x;
     public int y;
@@ -82,24 +83,26 @@ class Solution {
             List<Node> empty,
             List<Node> virus) {
 
+        // 안전 영역의 최대 크기
         int max = Integer.MIN_VALUE;
 
+        // 빈 칸 중 3개를 선택하는 모든 조합
         for (int i = 0; i < empty.size(); i++) {
             for (int j = i+1; j < empty.size(); j++) {
                 for (int k = j+1; k < empty.size(); k++) {
-
+                    // 보드 복사
                     int[][] testLab = new int[row][col];
-
+                
                     for (int m = 0; m <row; m++) {
                         System.arraycopy(board[m], 0, testLab[m], 0, col);
                     }
-
+                    // 선택한 3곳에 벽 설치
                     testLab[empty.get(i).x][empty.get(i).y] = 1;
                     testLab[empty.get(j).x][empty.get(j).y] = 1;
                     testLab[empty.get(k).x][empty.get(k).y] = 1;
-
+                    // 바이러스 확산 시뮬레이션
                     int answer = bfs(testLab, virus);
-
+                    // 안전 영역 크기 갱신
                     if (answer > max) {
                         max = answer;
                     }
@@ -129,8 +132,9 @@ class Solution {
                 for (int i = 0; i < 4; i++) {
                     int cx = nx + dx[i];
                     int cy = ny + dy[i];
-
+                    // 범위 체크
                     if ((0<=cx&&cx<lab.length)&&(0<=cy&&cy<lab[0].length)) {
+                        // 방문하지 않은 빈 칸이면 바이러스 확산
                         if (!visited[cx][cy]){
                             visited[cx][cy] = true;
                             if(lab[cx][cy]==0) {
@@ -143,6 +147,7 @@ class Solution {
                 }
             }
         }
+        // 안전 영역 개수 계산
         for (int i = 0; i < lab.length; i++) {
             for (int j = 0; j < lab[0].length; j++) {
                 if (lab[i][j] == 0) {
