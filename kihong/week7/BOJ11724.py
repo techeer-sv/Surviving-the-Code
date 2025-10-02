@@ -1,9 +1,18 @@
+"""백준 11724
+각 배열을 모두 방문하면서, BFS 알고리즘을 활용하여 연결 요소 개수 파악
+모든 간선과 노드를 모두 방문하는 것이므로 O(n+m)
+시간 복잡도 O(n+m)
+"""
+
+
 def solve(n, board):
 
     from collections import deque
 
+    # 방문 배열 선언
     visited = [False] * (n + 1)
 
+    # bfs 알고리즘을 활용하여 연결 요소 파악
     def bfs(board, start):
         q = deque()
         q.append(start)
@@ -15,21 +24,14 @@ def solve(n, board):
                     visited[next] = True
                     q.append(next)
 
+    # 연결 요소 개수
     cnt = 0
+    # 모든 배열을 돌아보면서 연결 요소 파악
     for idx in range(1, n + 1):
         if not visited[idx]:
             bfs(board, idx)
             cnt += 1
     return cnt
-
-
-n, m = map(int, input().split())
-board = [[] for _ in range(n + 1)]
-for _ in range(m):
-    a, b = map(int, input().split())
-    board[a].append(b)
-    board[b].append(a)
-print(solve(n, board))
 
 
 def main():
