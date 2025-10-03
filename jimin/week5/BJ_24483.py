@@ -1,45 +1,41 @@
 import sys
-
 sys.setrecursionlimit(10**6)
 input = sys.stdin.readline
 
-
-def dfs(node, d, graph, depth, visit_order, order):
-    depth[node] = d
-    visit_order[node] = order[0]
-    order[0] += 1
-
-    for nxt in graph[node]:
-        if depth[nxt] == -1:
-            dfs(nxt, d + 1, graph, depth, visit_order, order)
-
-
-def run_dfs(N, M, R, edges):
+def dfs_order(N, M, R, edges):
     graph = [[] for _ in range(N + 1)]
     for u, v in edges:
         graph[u].append(v)
         graph[v].append(u)
+
     for i in range(1, N + 1):
-        graph[i].sort()
+        graph[i].sort()  # 문제 조건: 인접 노드는 오름차순 방문
 
-    depth = [-1] * (N + 1)
-    visit_order = [0] * (N + 1)
-    order = [1]
+    visited = [0] * (N + 1)
+    order = 1
 
-    dfs(R, 0, graph, depth, visit_order, order)
+    def dfs(node):
+        nonlocal order
+        visited[node] = order
+        for nxt in graph[node]:
+            if visited[nxt] == 0:
+                order += 1
+                dfs(nxt)
 
-    result = 0
-    for i in range(1, N + 1):
-        result += depth[i] * visit_order[i]
-    return result
+    dfs(R)
+    return visited[1:]
 
 
 def main():
     N, M, R = map(int, input().split())
     edges = [tuple(map(int, input().split())) for _ in range(M)]
-    print(run_dfs(N, M, R, edges))
+    result = dfs_order(N, M, R, edges)
+    print("\n".join(map(str, result)))
 
 
+# ---------------------------
+# 내부 테스트 (입력 없을 때만 실행)
+# ---------------------------
 def run_tests():
     cases = [
         {
@@ -48,7 +44,7 @@ def run_tests():
             "M": 5,
             "R": 1,
             "edges": [(1, 4), (1, 2), (2, 3), (2, 4), (3, 4)],
-            "expected": 20,
+            "expected": [1, 4, 3, 2, 0],
         },
         {
             "name": "선형 그래프",
@@ -56,22 +52,20 @@ def run_tests():
             "M": 3,
             "R": 1,
             "edges": [(1, 2), (2, 3), (3, 4)],
-            "expected": 20,
+            "expected": [1, 2, 3, 4],
         },
     ]
 
     for i, tc in enumerate(cases, 1):
-        actual = run_dfs(tc["N"], tc["M"], tc["R"], tc["edges"])
-        assert (
-            actual == tc["expected"]
-        ), f"[{i}] {tc['name']} 실패: expected={tc['expected']}, actual={actual}"
+        actual = dfs_order(tc["N"], tc["M"], tc["R"], tc["edges"])
+        assert actual == tc["expected"], f"[{i}] {tc['name']} 실패: {actual} != {tc['expected']}"
         print(f"[{i}] {tc['name']} 성공")
 
 
 if __name__ == "__main__":
     if sys.stdin.isatty():
-        # 터미널 실행 시: 테스트 모드
+        # stdin이 없으면(로컬/CI 테스트용) → run_tests()
         run_tests()
     else:
-        # 백준/CI 실행 시: 실제 입력 모드
+        # stdin이 있으면(백준 제출/실제 실행) → main()
         main()
