@@ -65,10 +65,10 @@ def run_tests():
 
     for i, tc in enumerate(cases, 1):
         actual = dfs_depths(tc["N"], tc["M"], tc["R"], tc["edges"])
-        assert actual == tc["expected"], (
-            f"[{i}] {tc['name']} 실패: expected={tc['expected']}, actual={actual}"
-        )
-        print(f"[{i}] {tc['name']} 성공")
+    assert (
+            actual == tc["expected"]
+    ), f"[{i}] {tc['name']} 실패: expected={tc['expected']}, actual={actual}"
+    print(f"[{i}] {tc['name']} 성공")
 
 
 if __name__ == "__main__":
