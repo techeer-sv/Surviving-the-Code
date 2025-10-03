@@ -1,70 +1,50 @@
 import sys
 
-sys.setrecursionlimit(10**6)
 input = sys.stdin.readline
+sys.setrecursionlimit(10**6)
+INF = sys.maxsize
 
 
-def dfs_order(N, M, R, edges):
-    graph = [[] for _ in range(N + 1)]
-    for u, v in edges:
-        graph[u].append(v)
-        graph[v].append(u)
-
-    for i in range(1, N + 1):
-        graph[i].sort()  # 문제 조건: 인접 노드는 오름차순 방문
-
-    visited = [0] * (N + 1)
+def solve(board: list, n, m, r):
+    board = [sorted(_list) for _list in board]
+    visited = [[-1, 0] for _ in range(n + 1)]
     order = 1
 
-    def dfs(node):
+    def dfs(board, node, depth):
         nonlocal order
-        visited[node] = order
-        for nxt in graph[node]:
-            if visited[nxt] == 0:
-                order += 1
-                dfs(nxt)
+        visited[node][0] = depth
+        visited[node][1] = order
+        order += 1
+        for i in board[node]:
+            if visited[i][1] == 0:
+                dfs(board, i, depth + 1)
 
-    dfs(R)
-    return visited[1:]
+    dfs(board, r, 0)
+    sum = 0
+    for a, b in visited[1:]:
+        sum += a * b
+
+    return sum
 
 
 def main():
-    N, M, R = map(int, input().split())
-    edges = [tuple(map(int, input().split())) for _ in range(M)]
-    result = dfs_order(N, M, R, edges)
-    print("\n".join(map(str, result)))
-
-
-def run_tests():
     cases = [
         {
-            "name": "예제 입력 1",
-            "N": 5,
-            "M": 5,
-            "R": 1,
-            "edges": [(1, 4), (1, 2), (2, 3), (2, 4), (3, 4)],
-            "expected": [1, 4, 3, 2, 0],
-        },
-        {
-            "name": "선형 그래프",
-            "N": 4,
-            "M": 3,
-            "R": 1,
-            "edges": [(1, 2), (2, 3), (3, 4)],
-            "expected": [1, 2, 3, 4],
-        },
+            "n": 5,
+            "m": 5,
+            "r": 1,
+            "board": [[], [4, 2], [1, 3, 4], [2, 4], [1, 2, 3], []],
+            "expect": 20,
+        }
     ]
 
     for i, tc in enumerate(cases, 1):
-        actual = dfs_order(tc["N"], tc["M"], tc["R"], tc["edges"])
-        assert (
-            actual == tc["expected"]
-        ), f"[{i}] {tc['name']} 실패: {actual} != {tc['expected']}"
-        print(f"[{i}] {tc['name']} 성공")
+        result = solve(tc["board"], tc["n"], tc["m"], tc["r"])
+        assert result == tc["expect"], (
+            f"[{i}] 실패: " f"expected={tc['expected']}, actual_result={result}, "
+        )
+        print(f"test [{i}] 성공")
 
 
 if __name__ == "__main__":
-    if sys.stdin.isatty():
-        run_tests()
-    else:
-        main()
+    main()
