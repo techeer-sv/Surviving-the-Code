@@ -58,7 +58,7 @@ def run_tests():
     for i, tc in enumerate(cases, 1):
         actual = dfs_order(tc["N"], tc["M"], tc["R"], tc["edges"])
         assert (
-                actual == tc["expected"]
+            actual == tc["expected"]
         ), f"[{i}] {tc['name']} 실패: {actual} != {tc['expected']}"
         print(f"[{i}] {tc['name']} 성공")
 
