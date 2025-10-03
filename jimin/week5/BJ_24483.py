@@ -1,6 +1,8 @@
 import sys
+
 sys.setrecursionlimit(10**6)
 input = sys.stdin.readline
+
 
 def dfs_order(N, M, R, edges):
     graph = [[] for _ in range(N + 1)]
@@ -33,9 +35,6 @@ def main():
     print("\n".join(map(str, result)))
 
 
-# ---------------------------
-# 내부 테스트 (입력 없을 때만 실행)
-# ---------------------------
 def run_tests():
     cases = [
         {
@@ -58,14 +57,14 @@ def run_tests():
 
     for i, tc in enumerate(cases, 1):
         actual = dfs_order(tc["N"], tc["M"], tc["R"], tc["edges"])
-        assert actual == tc["expected"], f"[{i}] {tc['name']} 실패: {actual} != {tc['expected']}"
+        assert (
+                actual == tc["expected"]
+        ), f"[{i}] {tc['name']} 실패: {actual} != {tc['expected']}"
         print(f"[{i}] {tc['name']} 성공")
 
 
 if __name__ == "__main__":
     if sys.stdin.isatty():
-        # stdin이 없으면(로컬/CI 테스트용) → run_tests()
         run_tests()
     else:
-        # stdin이 있으면(백준 제출/실제 실행) → main()
         main()
