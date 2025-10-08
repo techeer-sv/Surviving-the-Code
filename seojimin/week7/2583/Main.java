@@ -20,15 +20,16 @@
  *  - 전체 시간 복잡도 -> O(n*m)
  *
  */
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class Main {
 
     static int n,m,k;
     static int[][] paper;
-    static int[] area;
     static boolean[][] visited;
     static int[] dx = new int[]{-1, 1, 0, 0};
     static int[] dy = new int[]{0, 0, -1, 1};
@@ -56,26 +57,24 @@ public class Main {
             }
         }
 
-        int count = 0;
-        area = new int[k];
+        List<Integer> area = new ArrayList<>();
         for (int i = m-1; i >= 0; i--) {
             for (int j = 0; j < n; j++) {
                 if (!visited[i][j] && paper[i][j] != 1){
-                    count++;
-                    bfs(i,j,count);
+                    int size = bfs(i, j);
+                    area.add(size);
                 }
             }
         }
 
-        System.out.println(count);
-
-        Arrays.sort(area);
+        System.out.println(area.size());
+        Collections.sort(area);
         for (int i : area) {
             System.out.print(i + " ");
         }
     }
 
-    static void bfs(int a, int b, int c){
+    static int bfs(int a, int b){
         Queue<int[]> q = new LinkedList<>();
         q.add(new int[]{a,b});
         visited[a][b] = true;
@@ -99,7 +98,7 @@ public class Main {
             }
         }
 
-        area[c-1] = extent;
+        return extent;
     }
 
     public static void main(String[] args) {
